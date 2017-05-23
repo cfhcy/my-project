@@ -62,6 +62,26 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+var apiRouter = express.Router();
+var fs = require('fs');
+apiRouter.route('/:apiName')
+.all(function (req, res) {
+  fs.readFile('./data.json', 'utf8', function (err, data) {
+    if(err) throw err;
+    var data = JSON.parse(data);
+    if (data[req.params.apiName]) {
+      res.json(data[req.params.apiName])
+    } else {
+      res.send('no such api name')
+    }
+  })
+});
+
+app.use('/api', apiRouter);
+
 var uri = 'http://localhost:' + port
 
 var _resolve
