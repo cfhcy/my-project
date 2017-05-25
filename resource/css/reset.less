@@ -111,68 +111,71 @@ h2{
   white-space: nowrap;
 }
 .service{
-  display: none;
   position: fixed;
   z-index: 100;
   top:0;
   height: 100%;
   width: 100%;
   background-color:rgba(0,0,0,0.6);
-  &>div{
-    border-radius: 0.2rem;
-    position: absolute;
-    top:30%;
-    left:10%;
-    width: 6rem;
-    background-color: #FFFFFF;
-    font-size: 0.32rem;
-    &>img{
-      margin-top: 0.2rem;
-      margin-right: 0.2rem;
-    }
+}
+.service_main{
+  border-radius: 0.2rem;
+  position: fixed;
+  top:30%;
+  left:10%;
+  width: 6rem;
+  background-color: #FFFFFF;
+  font-size: 0.32rem;
+  z-index: 200;
+  &>img{
+    margin-top: 0.2rem;
+    margin-right: 0.2rem;
+  }
+  span{
+    display: block;
+    color: #9c9c9c;
+    text-align: center;
+  }
+  &>img{
+    width: 0.3rem;
+    height: 0.3rem;
+  }
+  a{
+    color: #1b1b1b;
+    display: block;
+  }
+  .service_code{
+    clear: both;
     span{
+      margin: 0.1rem;
+    }
+    img{
       display: block;
-      color: #9c9c9c;
+      margin: 0 auto;
+      border-radius: 0.1rem;
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+  }
+  .service_phone{
+    //margin-top: 0.4rem;
+    span{
       text-align: center;
+      margin: 0.1rem 0;
     }
-    &>img{
-      width: 0.3rem;
-      height: 0.3rem;
-    }
-    a{
-      color: #1b1b1b;
+    button{
       display: block;
-    }
-    .service_code{
-      clear: both;
-      span{
-        margin: 0.1rem;
-      }
-      img{
-        display: block;
-        margin: 0 auto;
-        border-radius: 0.1rem;
-        width: 2.2rem;
-        height: 2.2rem;
-      }
-    }
-    .service_phone{
-      //margin-top: 0.4rem;
-      span{
-        text-align: center;
-        margin: 0.1rem 0;
-      }
-      a{
-        width: 4.6rem;
-        height: 0.6rem;
-        line-height: 0.6rem;
-        margin: 0 auto;
-        text-align: center;
-        color: #FFFFFF;
-        background-color: #e2493c;
-        border-radius: 0.1rem;
-        margin-bottom: 0.4rem;
-      }
+      width: 4.6rem;
+      height: 0.6rem;
+      line-height: 0.6rem;
+      margin: 0 auto;
+      margin-bottom: 0.4rem;
+      text-align: center;
+      border-radius: 0.1rem;
+      color: #FFFFFF;
+      background-color: #e2493c;
+      outline: none;
+      border:none;
     }
   }
 }

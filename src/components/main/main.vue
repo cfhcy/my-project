@@ -66,82 +66,12 @@
                     </span>
                 </div>
             </div>
-            <div class="attraction">
-                <div>
-                    <div class="attraction-head">
-                        <p class="attraction-head-left left">
-                            门票
-                            <span></span>
-                        </p>
-                        <a href="/wechat/index/more-ticproducts">
-                            <p class=" right">
-                                更多<img src="/static/image/118777603082319711.png" alt="">
-                            </p>
-                        </a>
-                    </div>
-                    <div class="attraction-main main" >
-                        <a v-for="ticket in ticket" href="/wechat/product/ticproduct/">
-                            <div class="attraction-main-left">
-                                <div>
-                                    <img :src="ticket.image" alt="">
-                                    <p class="product_title">{{ticket.title}}</p>
-                                </div>
-                                <div class="attraction-price">
-                                    <span>{{ticket.count}}人已购买</span>
-                                    <p>
-                                        <span><i>&yen;</i>{{ticket.price}}</span>起
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="attraction">
-                <div>
-                    <div class="attraction-head">
-                        <p class="attraction-head-left left">
-                            套餐<span></span>
-                        </p>
-                        <a href="/wechat/index/more-pakages">
-                            <p class=" right">
-                                更多<img src="/static/image/118777603082319711.png" alt="">
-                            </p>
-                        </a>
-                    </div>
-                    <div class="attraction-main main">
-                        <a href="/wechat/product/tourism-pakage/">
-                            <div class="attraction-main-left">
-                                <div>
-                                    <img src="" alt="">
-                                    <p class="product_title">宁波方特</p>
-                                </div>
-                                <div class="attraction-price">
-                                    <span>人已购买</span>
-                                    <p>
-                                        <span><i>&yen;</i>120</span>起
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <exhibition :product-type="'门票'" :products="tickets"></exhibition>
+            <exhibition :product-type="'套餐'" :products="pakages"></exhibition>
+            <exhibition :product-type="'线路'" :products="routes"></exhibition>
         </section>
         <footer>
-            <div class="service" id="J_service" style="display: none">
-                <div>
-                    <img id="J-close" class="right" src="/static/image/x@2x.png">
-                    <div class="service_code">
-                        <span>长按识别客服二维码</span>
-                        <img  alt="">
-                    </div>
-                    <div class="service_phone">
-                        <span>或者</span>
-                        <a href=""></a>
-                    </div>
-                </div>
-            </div>
+            <service :service="serviceState"  :serviceMessage="serviceMessage" @change-service="changeService"></service>
             <div class="navigation">
                 <ul>
                     <li>
@@ -160,7 +90,7 @@
                         </a>
                     </li>
                     <li>
-                        <a id="J-service">
+                        <a @click="serviceOpen">
                             <img src="/static/image/kefu.png" class="navigation-big last-img">
                         </a>
                     </li>
@@ -172,12 +102,23 @@
 </template>
 
 <script type="text/ecmascript-6">
+    import exhibition from '/components/exhibition/exhibition';
+    import service from '/components/service/service';
+
     export default {
         data() {
             return {
                 activityProduct: {},
-                ticket: []
+                tickets: [],
+                pakages: [],
+                routes: [],
+                serviceMessage: {}
             };
+        },
+        computed: {
+           serviceState() {
+               return this.$store.state.service;
+           }
         },
         created: function () {
             this.$ajax({
@@ -185,13 +126,26 @@
                 url: '/api/getIndex'
             }).then((res) => {
                 this.newsList = res.data;
-                console.log(res.data.getActivityProduct);
                 this.activityProduct = res.data.getActivityProduct;
-                this.ticket = res.data.getTicket;
-                console.log(this.activityProduct);
+                this.tickets = res.data.getTicket;
+                this.pakages = res.data.getPakage;
+                this.routes = res.data.getRoute;
+                this.serviceMessage = res.data.getService;
             }, (err) => {
                 console.log(err);
             });
+        },
+        methods: {
+            serviceOpen() {
+                this.$store.commit('change', this.service);
+            },
+            changeService(val) {
+                this.service = val;
+            }
+        },
+        components: {
+            exhibition,
+            service
         }
     };
 </script>
@@ -643,4 +597,3 @@
         }
     }
 </style>
-

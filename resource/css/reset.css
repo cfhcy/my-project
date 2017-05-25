@@ -184,7 +184,6 @@ h2 {
   white-space: nowrap;
 }
 .service {
-  display: none;
   position: fixed;
   z-index: 100;
   top: 0;
@@ -192,59 +191,63 @@ h2 {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.6);
 }
-.service > div {
+.service_main {
   border-radius: 0.2rem;
-  position: absolute;
+  position: fixed;
   top: 30%;
   left: 10%;
   width: 6rem;
   background-color: #FFFFFF;
   font-size: 0.32rem;
+  z-index: 200;
 }
-.service > div > img {
+.service_main > img {
   margin-top: 0.2rem;
   margin-right: 0.2rem;
 }
-.service > div span {
+.service_main span {
   display: block;
   color: #9c9c9c;
   text-align: center;
 }
-.service > div > img {
+.service_main > img {
   width: 0.3rem;
   height: 0.3rem;
 }
-.service > div a {
+.service_main a {
   color: #1b1b1b;
   display: block;
 }
-.service > div .service_code {
+.service_main .service_code {
   clear: both;
 }
-.service > div .service_code span {
+.service_main .service_code span {
   margin: 0.1rem;
 }
-.service > div .service_code img {
+.service_main .service_code img {
   display: block;
   margin: 0 auto;
   border-radius: 0.1rem;
   width: 2.2rem;
   height: 2.2rem;
 }
-.service > div .service_phone span {
+.service_main .service_phone span {
   text-align: center;
   margin: 0.1rem 0;
 }
-.service > div .service_phone a {
+.service_main .service_phone button {
+  display: block;
   width: 4.6rem;
   height: 0.6rem;
   line-height: 0.6rem;
   margin: 0 auto;
+  margin-bottom: 0.4rem;
   text-align: center;
+  border-radius: 0.1rem;
   color: #FFFFFF;
   background-color: #e2493c;
-  border-radius: 0.1rem;
-  margin-bottom: 0.4rem;
+  outline: none;
+  border: none;
 }
 .column {
   height: 0.2rem;
