@@ -30,6 +30,10 @@ export default new Router({
         {
             path: '/service',
             component: service
+        },
+        {
+            path: '/service',
+            component: service
         }
     ]
 });

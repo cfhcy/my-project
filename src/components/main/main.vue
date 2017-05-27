@@ -9,9 +9,12 @@
                     </router-link>
                 </span>
                 在途旅游
-                <a href="/wechat/index/search-page">
+                <span @click="changeSearch">
                     <img src="/static/image/sousuoicon@2x.png" alt="">
-                </a>
+                </span>
+            </div>
+            <div v-show="search" class="search_container">
+                <search-page></search-page>
             </div>
         </header>
         <section>
@@ -104,6 +107,7 @@
 <script type="text/ecmascript-6">
     import exhibition from '../exhibition/exhibition';
     import service from '../service/service';
+    import searchPage from 'components/searchPage/search';
 
     export default {
         data() {
@@ -122,6 +126,9 @@
             },
             cityName(){
                 return this.$route.params;
+            },
+            search() {
+                return this.$store.state.mainService.search;
             }
         },
         created: function () {
@@ -148,11 +155,15 @@
             },
             serviceOpen() {
                 this.$store.commit('changeService', this.$store.state.mainService.service);
+            },
+            changeSearch() {
+                this.$store.commit('changeSearch', this.$store.state.mainService.search);
             }
         },
         components: {
             exhibition,
-            service
+            service,
+            searchPage
         }
     };
 </script>
@@ -189,7 +200,7 @@
                 margin-bottom: 0.33rem;
             }
         }
-        &>a{
+        &>span{
             position: absolute;
             right: 0.28rem;
             width: 1.3rem;
@@ -199,6 +210,14 @@
                 margin-top: 0.3rem;
             }
         }
+    }
+    .search_container{
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: #efefef;
+        z-index: 1000;
     }
     a {
         .special {

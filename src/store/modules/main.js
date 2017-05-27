@@ -1,16 +1,16 @@
 const state = {
-    service: false
-};
-const getters = {
-    service: state => state.service
+    service: false,
+    search: false
 };
 const mutations = {
     changeService(state, service) {
         state.service = !service;
+    },
+    changeSearch(state, search) {
+        state.search = !search;
     }
 };
 export default {
     state,
-    getters,
     mutations
 }

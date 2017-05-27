@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import mainService from './modules/mainService';
+import mainService from './modules/main';
 
 Vue.use(Vuex);
 
