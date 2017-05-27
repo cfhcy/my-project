@@ -19,17 +19,18 @@
 <script type="text/ecmascript-6">
     export default {
       props: {
-          service: {
-              type: Boolean
-          },
           serviceMessage: {
               type: Object
           }
       },
+      computed:{
+        service() {
+            return this.$store.state.mainService.service;
+        }
+      },
       methods: {
           serviceOpen() {
-             console.log(this.$store.state.service);
-             this.$store.commit('change', this.service);
+             this.$store.commit('changeService', this.service);
           },
           callPhone() {
               window.location.href = 'tel:' + this.service.service_tel;

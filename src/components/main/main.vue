@@ -2,11 +2,11 @@
     <div>
         <header>
             <div class="head">
-                <span>
-                    <a href="/wechat/index/choose-city-page/">
-                        <b>杭州</b>
+                <span class="city">
+                    <router-link :to="{name:'city',params:{ cityid : city.id , cityname : city.name}}">
+                        <b>{{city.name}}</b>
                         <img src="/static/image/dingwei.png" alt="">
-                    </a>
+                    </router-link>
                 </span>
                 在途旅游
                 <a href="/wechat/index/search-page">
@@ -71,7 +71,7 @@
             <exhibition :product-type="'线路'" :products="routes"></exhibition>
         </section>
         <footer>
-            <service :service="serviceState"  :serviceMessage="serviceMessage" @change-service="changeService"></service>
+            <service  :serviceMessage="serviceMessage"></service>
             <div class="navigation">
                 <ul>
                     <li>
@@ -102,8 +102,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import exhibition from '/components/exhibition/exhibition';
-    import service from '/components/service/service';
+    import exhibition from '../exhibition/exhibition';
+    import service from '../service/service';
 
     export default {
         data() {
@@ -112,13 +112,14 @@
                 tickets: [],
                 pakages: [],
                 routes: [],
-                serviceMessage: {}
+                serviceMessage: {},
+                city: {}
             };
         },
         computed: {
-           serviceState() {
-               return this.$store.state.service;
-           }
+            serviceState() {
+                return this.$store.state.mainService.service;
+            }
         },
         created: function () {
             this.$ajax({
@@ -131,16 +132,14 @@
                 this.pakages = res.data.getPakage;
                 this.routes = res.data.getRoute;
                 this.serviceMessage = res.data.getService;
+                this.city = res.data.getCity;
             }, (err) => {
                 console.log(err);
             });
         },
         methods: {
             serviceOpen() {
-                this.$store.commit('change', this.service);
-            },
-            changeService(val) {
-                this.service = val;
+                this.$store.commit('changeService', this.$store.state.mainService.service);
             }
         },
         components: {
@@ -161,7 +160,7 @@
         color: #FFFFFF;
         font-size: 0.36rem;
         text-align: center;
-        span{
+        .city{
             position: absolute;
             height: 100%;
             left: 0.28rem;

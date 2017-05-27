@@ -359,6 +359,27 @@
       "created_at":"2017\/3\/22 15:22:04",
       "updated_at":"2017\/3\/22 15:22:04",
       "deleted_at":null
+    },
+    "getCity":{
+      "id":90,
+      "name":"杭州"
     }
-  }
+  },
+  "getNowCity":[
+    {
+      "id":1,
+      "name":"南京",
+      "city_no": 110000
+    },
+    {
+      "id":2,
+      "name":"上海",
+      "city_no": 310000
+    },
+    {
+      "id":5,
+      "name":"南京",
+      "city_no": 510000
+    }
+  ]
 }
