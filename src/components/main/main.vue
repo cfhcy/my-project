@@ -3,8 +3,8 @@
         <header>
             <div class="head">
                 <span class="city">
-                    <router-link :to="{name:'city',params:{ cityid : city.id , cityname : city.name}}">
-                        <b>{{city.name}}</b>
+                    <router-link :to="{ name:'city',params:{ city_no : city.city_no , city_name : city.city_name}}">
+                        <b>{{city.city_name}}</b>
                         <img src="/static/image/dingwei.png" alt="">
                     </router-link>
                 </span>
@@ -113,31 +113,39 @@
                 pakages: [],
                 routes: [],
                 serviceMessage: {},
-                city: {}
+                city: {city_no : 11000,city_name: '杭州'}
             };
         },
         computed: {
             serviceState() {
                 return this.$store.state.mainService.service;
+            },
+            cityName(){
+                return this.$route.params;
             }
         },
         created: function () {
-            this.$ajax({
-                method: 'get',
-                url: '/api/getIndex'
-            }).then((res) => {
-                this.newsList = res.data;
-                this.activityProduct = res.data.getActivityProduct;
-                this.tickets = res.data.getTicket;
-                this.pakages = res.data.getPakage;
-                this.routes = res.data.getRoute;
-                this.serviceMessage = res.data.getService;
-                this.city = res.data.getCity;
-            }, (err) => {
-                console.log(err);
-            });
+            this.fetchData();
+        },
+        watch: {
+            '$route' : 'fetchData'
         },
         methods: {
+            fetchData() {
+                if (this.$route.params.city_no){
+                    this.city = this.$route.params;
+                }
+                this.$ajax.post('/api/getIndex',{city_no: this.$route.params.city_no})
+                    .then( (res) => {
+                        this.activityProduct = res.data.getActivityProduct;
+                        this.tickets = res.data.getTicket;
+                        this.pakages = res.data.getPakage;
+                        this.routes = res.data.getRoute;
+                        this.serviceMessage = res.data.getService;
+                    },( err ) =>{
+                        alert('页面加载出错');
+                    })
+            },
             serviceOpen() {
                 this.$store.commit('changeService', this.$store.state.mainService.service);
             }

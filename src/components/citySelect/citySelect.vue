@@ -4,44 +4,51 @@
         <div class="section">
             <div class="location_city">
                 <p>根据您的定位推荐</p>
-                <a href="">{{cityName}}</a>
+                <router-link to="/main">{{cityName}}</router-link>
             </div>
             <div class="city">
                 <p>现有城市</p>
                 <ul>
-                    <li><a></a></li>
+                    <li v-for="city in citys"><router-link :class="{selected : cityNo == city.city_no}" :to="{name:'backCity',params:{'city_no': city.city_no,'city_name': city.name}}">{{city.name}}</router-link></li>
                 </ul>
             </div>
         </div>
+        <down-navigation></down-navigation>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
     import headPlace from 'components/header/header';
+    import downNavigation from 'components/downNavigation/navigation';
 
     export default {
+        data() {
+            return{
+                citys: []
+            }
+        },
         created(){
             this.$ajax.get('/api/getNowCity')
             .then( (res) => {
-
-            },( err ) =>{}
-            )
+                this.citys = res.data;
+            },( err ) =>{
+                alert('页面加载出错');
+            })
         },
         computed: {
           cityName() {
-              console.log(this.$route.path);
-              console.log(this.$route.query.cityid);
-              console.log(this.$route.query);
-              console.log(this.$route.params);
-              console.log(this.$route.hash);
-              console.log(this.$route.fullPath);
-              console.log(this.$route.matched);
-              console.log(this.$route.name);
-              return this.$route.params.cityname;
+              return this.$route.params.city_name;
+          },
+          cityNo() {
+            return this.$route.params.city_no;
+          },
+          serviceState() {
+             return this.$store.state.mainService.service;
           }
         },
         components: {
-            headPlace
+            headPlace,
+            downNavigation
         }
     };
 </script>

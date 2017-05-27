@@ -368,11 +368,16 @@
   "getNowCity":[
     {
       "id":1,
-      "name":"南京",
-      "city_no": 110000
+      "name":"北京",
+      "city_no": 100000
     },
     {
       "id":2,
+      "name":"杭州",
+      "city_no": 110000
+    },
+    {
+      "id":3,
       "name":"上海",
       "city_no": 310000
     },

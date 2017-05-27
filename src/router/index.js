@@ -18,7 +18,12 @@ export default new Router({
             component: main
         },
         {
-            path: '/city/:cityid/:cityname',
+            path: '/main/:city_no/:city_name',
+            name:'backCity',
+            component: main
+        },
+        {
+            path: '/city/:city_no/:city_name',
             name:'city',
             component: citySelect
         },
