@@ -1,13 +1,13 @@
 const state = {
     service: false,
-    search: false
+    searchState: false
 };
 const mutations = {
     changeService(state, service) {
         state.service = !service;
     },
     changeSearch(state, search) {
-        state.search = !search;
+        state.searchState = !search;
     }
 };
 export default {

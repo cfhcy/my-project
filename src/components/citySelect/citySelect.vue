@@ -1,19 +1,21 @@
 <template>
     <div>
-        <head-place :title="'城市选择'"></head-place>
-        <div class="section">
-            <div class="location_city">
-                <p>根据您的定位推荐</p>
-                <router-link to="/main">{{cityName}}</router-link>
+        <div class="search_container">
+            <head-place :title="'城市选择'"></head-place>
+            <div class="section">
+                <div class="location_city">
+                    <p>根据您的定位推荐</p>
+                    <router-link to="/main">{{cityName}}</router-link>
+                </div>
+                <div class="city">
+                    <p>现有城市</p>
+                    <ul>
+                        <li v-for="city in citys"><router-link :class="{selected : cityNo == city.city_no}" :to="{name:'backCity',params:{'city_no': city.city_no,'city_name': city.name}}">{{city.name}}</router-link></li>
+                    </ul>
+                </div>
             </div>
-            <div class="city">
-                <p>现有城市</p>
-                <ul>
-                    <li v-for="city in citys"><router-link :class="{selected : cityNo == city.city_no}" :to="{name:'backCity',params:{'city_no': city.city_no,'city_name': city.name}}">{{city.name}}</router-link></li>
-                </ul>
-            </div>
+            <down-navigation></down-navigation>
         </div>
-        <down-navigation></down-navigation>
     </div>
 </template>
 
@@ -41,9 +43,6 @@
           },
           cityNo() {
             return this.$route.params.city_no;
-          },
-          serviceState() {
-             return this.$store.state.mainService.service;
           }
         },
         components: {
@@ -56,6 +55,14 @@
 <style lang="less" rel='stylesheet/less'>
     body{
         font-size: 0.32rem;
+    }
+    .search_container{
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: #efefef;
+        z-index: 1000;
     }
     .section{
         a{

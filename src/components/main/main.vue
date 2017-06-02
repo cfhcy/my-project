@@ -13,10 +13,8 @@
                     <img src="/static/image/sousuoicon@2x.png" alt="">
                 </span>
             </div>
-            <div v-show="search" class="search_container">
-                <search-page></search-page>
-            </div>
         </header>
+        <search-page></search-page>
         <section>
             <a  href="/wechat/activity/activity-product/">
                 <div class="special">
@@ -107,7 +105,7 @@
 <script type="text/ecmascript-6">
     import exhibition from '../exhibition/exhibition';
     import service from '../service/service';
-    import searchPage from 'components/searchPage/search';
+    import searchPage from '../searchPage/search';
 
     export default {
         data() {
@@ -126,9 +124,6 @@
             },
             cityName(){
                 return this.$route.params;
-            },
-            search() {
-                return this.$store.state.mainService.search;
             }
         },
         created: function () {
@@ -157,7 +152,7 @@
                 this.$store.commit('changeService', this.$store.state.mainService.service);
             },
             changeSearch() {
-                this.$store.commit('changeSearch', this.$store.state.mainService.search);
+                this.$store.commit('changeSearch', this.$store.state.mainService.searchState);
             }
         },
         components: {
@@ -210,14 +205,6 @@
                 margin-top: 0.3rem;
             }
         }
-    }
-    .search_container{
-        position: fixed;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: #efefef;
-        z-index: 1000;
     }
     a {
         .special {
